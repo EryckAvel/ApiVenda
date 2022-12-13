@@ -12,6 +12,7 @@ public class Clientes implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idcliente;
+    private String nome;
     private String cpfCnpj;
     private String nomeCidade;
     private String endereco;
@@ -25,7 +26,7 @@ public class Clientes implements Serializable {
 
     public Clientes(
             Long id,
-            String cpfCnpj,
+            String nome, String cpfCnpj,
             String nomeCidade,
             String endereco,
             String complemento,
@@ -33,6 +34,7 @@ public class Clientes implements Serializable {
             String bairro,
             String cep) {
         this.idcliente = id;
+        this.nome = nome;
         this.cpfCnpj = cpfCnpj;
         this.nomeCidade = nomeCidade;
         this.endereco = endereco;
@@ -49,6 +51,15 @@ public class Clientes implements Serializable {
     public void setIdcliente(Long idcliente) {
         this.idcliente = idcliente;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
 
     public String getCpfCnpj() {
         return cpfCnpj;
