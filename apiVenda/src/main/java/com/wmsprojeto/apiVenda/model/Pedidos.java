@@ -12,7 +12,7 @@ public class Pedidos implements Serializable {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long idpedido;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Clientes cliente;
@@ -25,7 +25,7 @@ public class Pedidos implements Serializable {
     }
 
     public Pedidos(Long id, Clientes cliente, LocalDateTime dataRegistro, Integer totalPedido, Integer qtdItens, String status) {
-        this.id = id;
+        this.idpedido = id;
         this.cliente = cliente;
         this.dataRegistro = dataRegistro;
         this.totalPedido = totalPedido;
@@ -33,12 +33,12 @@ public class Pedidos implements Serializable {
         this.status = status;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdpedido() {
+        return idpedido;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdpedido(Long idpedido) {
+        this.idpedido = idpedido;
     }
 
     public LocalDateTime getDataRegistro() {

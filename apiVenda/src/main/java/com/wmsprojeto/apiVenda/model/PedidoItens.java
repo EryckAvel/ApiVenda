@@ -11,7 +11,7 @@ public class PedidoItens implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long idpedidoitem;
     @ManyToOne
     @JoinColumn(name = "pedidos_id")
     private Pedidos pedidos;
@@ -27,7 +27,7 @@ public class PedidoItens implements Serializable {
     }
 
     public PedidoItens(Long id, Pedidos pedidos, Produto produto, Integer quantidade, Integer qtdSerparada, Integer qtdConferida, Integer qtdCortada) {
-        this.id = id;
+        this.idpedidoitem = id;
         this.pedidos = pedidos;
         this.produto = produto;
         this.quantidade = quantidade;
@@ -36,12 +36,12 @@ public class PedidoItens implements Serializable {
         this.qtdCortada = qtdCortada;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdpedidoitem() {
+        return idpedidoitem;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdpedidoitem(Long idpedidoitem) {
+        this.idpedidoitem = idpedidoitem;
     }
 
     public Integer getQuantidade() {
