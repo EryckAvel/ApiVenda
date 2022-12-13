@@ -29,9 +29,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>pljava-public</artifactId>
-			<version>1.0.0b4</version>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
