@@ -16,9 +16,9 @@ public class Pedidos implements Serializable {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Clientes cliente;
-    private LocalDateTime dataRegistro;
-    private Integer totalPedido;
-    private Integer qtdItens;
+    private LocalDateTime dataregistro;
+    private Integer totalpedido;
+    private Integer qtditens;
     private String status;
 
     public Pedidos() {
@@ -27,9 +27,9 @@ public class Pedidos implements Serializable {
     public Pedidos(Long id, Clientes cliente, LocalDateTime dataRegistro, Integer totalPedido, Integer qtdItens, String status) {
         this.idpedido = id;
         this.cliente = cliente;
-        this.dataRegistro = dataRegistro;
-        this.totalPedido = totalPedido;
-        this.qtdItens = qtdItens;
+        this.dataregistro = dataRegistro;
+        this.totalpedido = totalPedido;
+        this.qtditens = qtdItens;
         this.status = status;
     }
 
@@ -41,28 +41,28 @@ public class Pedidos implements Serializable {
         this.idpedido = idpedido;
     }
 
-    public LocalDateTime getDataRegistro() {
-        return dataRegistro;
+    public LocalDateTime getDataregistro() {
+        return dataregistro;
     }
 
-    public void setDataRegistro(LocalDateTime dataRegistro) {
-        this.dataRegistro = dataRegistro;
+    public void setDataregistro(LocalDateTime dataregistro) {
+        this.dataregistro = dataregistro;
     }
 
-    public Integer getTotalPedido() {
-        return totalPedido;
+    public Integer getTotalpedido() {
+        return totalpedido;
     }
 
-    public void setTotalPedido(Integer totalPedido) {
-        this.totalPedido = totalPedido;
+    public void setTotalpedido(Integer totalpedido) {
+        this.totalpedido = totalpedido;
     }
 
-    public Integer getQtdItens() {
-        return qtdItens;
+    public Integer getQtditens() {
+        return qtditens;
     }
 
-    public void setQtdItens(Integer qtdItens) {
-        this.qtdItens = qtdItens;
+    public void setQtditens(Integer qtditens) {
+        this.qtditens = qtditens;
     }
 
     public String getStatus() {

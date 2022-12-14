@@ -13,9 +13,9 @@ public class ProdutoEmbalagem implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idprodutoembalagem;
     @ManyToOne
-    @JoinColumn(name = "produto_id")
+    @JoinColumn(name = "idproduto")
     private Produto produto;
-    private String codBarra;
+    private String codbarra;
     private String embalagem;
     private Integer quantidade;
     private Integer situacao;
@@ -23,10 +23,10 @@ public class ProdutoEmbalagem implements Serializable {
     public ProdutoEmbalagem() {
     }
 
-    public ProdutoEmbalagem(Long id, Produto produto, String codBarra, String embalagem, Integer quantidade, Integer situacao) {
+    public ProdutoEmbalagem(Long id, Produto produto, String codbarra, String embalagem, Integer quantidade, Integer situacao) {
         this.idprodutoembalagem = id;
         this.produto = produto;
-        this.codBarra = codBarra;
+        this.codbarra = codbarra;
         this.embalagem = embalagem;
         this.quantidade = quantidade;
         this.situacao = situacao;
@@ -41,11 +41,11 @@ public class ProdutoEmbalagem implements Serializable {
     }
 
     public String getCodBarra() {
-        return codBarra;
+        return codbarra;
     }
 
     public void setCodBarra(String codBarra) {
-        this.codBarra = codBarra;
+        this.codbarra = codBarra;
     }
 
     public String getEmbalagem() {

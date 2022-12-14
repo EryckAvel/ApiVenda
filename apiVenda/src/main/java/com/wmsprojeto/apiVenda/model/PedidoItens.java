@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "pedidositens")
+@Table(name = "pedidositem")
 public class PedidoItens implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -13,27 +13,27 @@ public class PedidoItens implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idpedidoitem;
     @ManyToOne
-    @JoinColumn(name = "pedidos_id")
+    @JoinColumn(name = "idpedido")
     private Pedidos pedidos;
     @ManyToOne
-    @JoinColumn(name = "produto_id")
+    @JoinColumn(name = "idproduto")
     private Produto produto;
     private Integer quantidade;
-    private Integer qtdSerparada;
-    private Integer qtdConferida;
-    private Integer qtdCortada;
+    private Integer qtdserparada;
+    private Integer qtdconferida;
+    private Integer qtdcortada;
 
     public PedidoItens() {
     }
 
-    public PedidoItens(Long id, Pedidos pedidos, Produto produto, Integer quantidade, Integer qtdSerparada, Integer qtdConferida, Integer qtdCortada) {
+    public PedidoItens(Long id, Pedidos pedidos, Produto produto, Integer quantidade, Integer qtdserparada, Integer qtdconferida, Integer qtdcortada) {
         this.idpedidoitem = id;
         this.pedidos = pedidos;
         this.produto = produto;
         this.quantidade = quantidade;
-        this.qtdSerparada = qtdSerparada;
-        this.qtdConferida = qtdConferida;
-        this.qtdCortada = qtdCortada;
+        this.qtdserparada = qtdserparada;
+        this.qtdconferida = qtdconferida;
+        this.qtdcortada = qtdcortada;
     }
 
     public Long getIdpedidoitem() {
@@ -53,27 +53,27 @@ public class PedidoItens implements Serializable {
     }
 
     public Integer getQtdSerparada() {
-        return qtdSerparada;
+        return qtdserparada;
     }
 
     public void setQtdSerparada(Integer qtdSerparada) {
-        this.qtdSerparada = qtdSerparada;
+        this.qtdserparada = qtdSerparada;
     }
 
     public Integer getQtdConferida() {
-        return qtdConferida;
+        return qtdconferida;
     }
 
     public void setQtdConferida(Integer qtdConferida) {
-        this.qtdConferida = qtdConferida;
+        this.qtdconferida = qtdConferida;
     }
 
-    public Integer getQtdCortada() {
-        return qtdCortada;
+    public Integer getQtdcortada() {
+        return qtdcortada;
     }
 
-    public void setQtdCortada(Integer qtdCortada) {
-        this.qtdCortada = qtdCortada;
+    public void setQtdcortada(Integer qtdcortada) {
+        this.qtdcortada = qtdcortada;
     }
 
     public Produto getProduto() {
