@@ -17,8 +17,6 @@ public class Produto implements Serializable {
     public Produto() {
     }
 
-
-
     public Long getIdproduto() {
         return idproduto;
     }
