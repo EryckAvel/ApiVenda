@@ -14,9 +14,9 @@ public class Pedidos implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idpedido;
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "idcliente")
     private Clientes cliente;
-    private LocalDateTime dataregistro;
+    private LocalDateTime datageracao;
     private Integer totalpedido;
     private Integer qtditens;
     private String status;
@@ -27,7 +27,7 @@ public class Pedidos implements Serializable {
     public Pedidos(Long id, Clientes cliente, LocalDateTime dataRegistro, Integer totalPedido, Integer qtdItens, String status) {
         this.idpedido = id;
         this.cliente = cliente;
-        this.dataregistro = dataRegistro;
+        this.datageracao = dataRegistro;
         this.totalpedido = totalPedido;
         this.qtditens = qtdItens;
         this.status = status;
@@ -41,12 +41,12 @@ public class Pedidos implements Serializable {
         this.idpedido = idpedido;
     }
 
-    public LocalDateTime getDataregistro() {
-        return dataregistro;
+    public LocalDateTime getDatageracao() {
+        return datageracao;
     }
 
-    public void setDataregistro(LocalDateTime dataregistro) {
-        this.dataregistro = dataregistro;
+    public void setDatageracao(LocalDateTime datageracao) {
+        this.datageracao = datageracao;
     }
 
     public Integer getTotalpedido() {

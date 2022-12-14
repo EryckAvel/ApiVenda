@@ -1,5 +1,7 @@
 package com.wmsprojeto.apiVenda.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,26 +14,28 @@ public class PedidoItens implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idpedidoitem;
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idpedido")
     private Pedidos pedidos;
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idproduto")
     private Produto produto;
     private Integer quantidade;
-    private Integer qtdserparada;
+    private Integer qtdseparada;
     private Integer qtdconferida;
     private Integer qtdcortada;
 
     public PedidoItens() {
     }
 
-    public PedidoItens(Long id, Pedidos pedidos, Produto produto, Integer quantidade, Integer qtdserparada, Integer qtdconferida, Integer qtdcortada) {
+    public PedidoItens(Long id, Pedidos pedidos, Produto produto, Integer quantidade, Integer qtdseparada, Integer qtdconferida, Integer qtdcortada) {
         this.idpedidoitem = id;
         this.pedidos = pedidos;
         this.produto = produto;
         this.quantidade = quantidade;
-        this.qtdserparada = qtdserparada;
+        this.qtdseparada = qtdseparada;
         this.qtdconferida = qtdconferida;
         this.qtdcortada = qtdcortada;
     }
@@ -52,12 +56,12 @@ public class PedidoItens implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public Integer getQtdSerparada() {
-        return qtdserparada;
+    public Integer getQtdSeparada() {
+        return qtdseparada;
     }
 
-    public void setQtdSerparada(Integer qtdSerparada) {
-        this.qtdserparada = qtdSerparada;
+    public void setQtdSeparada(Integer qtdSeparada) {
+        this.qtdseparada = qtdSeparada;
     }
 
     public Integer getQtdConferida() {
