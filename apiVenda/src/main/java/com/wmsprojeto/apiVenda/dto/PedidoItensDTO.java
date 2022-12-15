@@ -12,24 +12,19 @@ public class PedidoItensDTO {
     private Integer qtdconferida;
     private Integer qtdcortada;
 
-    /*
-    @JsonProperty("idproduto")
-    private void unpackNested(Integer id) {
-        this. = new Flight();
-        flight.setFlight_id(flight_id);
-    }
-     */
+    private String codbarra;
 
     public PedidoItensDTO() {
     }
 
-    public PedidoItensDTO(Pedidos pedidos, Produto produto, Integer quantidade, Integer qtdseparada, Integer qtdconferida, Integer qtdcortada) {
+    public PedidoItensDTO(Pedidos pedidos, Produto produto, Integer quantidade, Integer qtdseparada, Integer qtdconferida, Integer qtdcortada, String codbarra) {
         this.pedidos = pedidos;
         this.produto = produto;
         this.quantidade = quantidade;
         this.qtdseparada = qtdseparada;
         this.qtdconferida = qtdconferida;
         this.qtdcortada = qtdcortada;
+        this.codbarra = codbarra;
     }
 
     public Pedidos getPedidos() {
@@ -78,5 +73,13 @@ public class PedidoItensDTO {
 
     public void setQtdcortada(Integer qtdcortada) {
         this.qtdcortada = qtdcortada;
+    }
+
+    public String getCodbarra() {
+        return codbarra;
+    }
+
+    public void setCodbarra(String codbarra) {
+        this.codbarra = codbarra;
     }
 }

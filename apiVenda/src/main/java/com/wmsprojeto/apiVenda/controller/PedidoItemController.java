@@ -19,7 +19,7 @@ public class PedidoItemController {
     @Autowired
     PedidoItensService pedidoItensService;
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<PedidoItens>> listarItensPedido(){
         return ResponseEntity.status(HttpStatus.OK).body(pedidoItensService.findAll());
     }
@@ -38,6 +38,24 @@ public class PedidoItemController {
         var item = new PedidoItens();
         BeanUtils.copyProperties(dto, item);
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoItensService.save(item));
+    }
+
+    @PutMapping("/{codbarra}/qtd")
+    public ResponseEntity<Object> alterarQtd(@PathVariable("codbarra") String codbarra,@RequestBody PedidoItensDTO dto) {
+        Optional<PedidoItens> piOptional = pedidoItensService.findByCodBarra(codbarra);
+        if (piOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.OK).body("Codigo de Barras não encontrado");
+        }
+        var itempedido = new PedidoItens();
+        BeanUtils.copyProperties(dto, itempedido);
+        itempedido.setIdpedidoitem(piOptional.get().getIdpedidoitem());
+        itempedido.setPedidos(piOptional.get().getPedidos());
+        itempedido.setProduto(piOptional.get().getProduto());
+        itempedido.setQtdcortada(piOptional.get().getQtdcortada());
+        itempedido.setQtdConferida(piOptional.get().getQtdConferida());
+        itempedido.setQuantidade(piOptional.get().getQuantidade());
+        itempedido.setCodbarra(piOptional.get().getCodbarra());
+        return ResponseEntity.status(HttpStatus.OK).body(pedidoItensService.save(itempedido));
     }
 
 }

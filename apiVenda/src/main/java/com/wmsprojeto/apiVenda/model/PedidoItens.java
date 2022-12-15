@@ -26,6 +26,16 @@ public class PedidoItens implements Serializable {
     private Integer qtdseparada;
     private Integer qtdconferida;
     private Integer qtdcortada;
+    @Transient
+    private String codbarra;
+
+    public String getCodbarra() {
+        return codbarra;
+    }
+
+    public void setCodbarra(String codbarra) {
+        this.codbarra = codbarra;
+    }
 
     public PedidoItens() {
     }
