@@ -1,5 +1,8 @@
 package com.wmsprojeto.apiVenda.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -13,6 +16,8 @@ public class Pedidos implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idpedido;
+    //@JsonIgnore
+    @JsonIdentityReference
     @ManyToOne
     @JoinColumn(name = "idcliente")
     private Clientes cliente;

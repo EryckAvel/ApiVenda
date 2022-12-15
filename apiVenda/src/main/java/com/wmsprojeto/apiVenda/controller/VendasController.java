@@ -38,7 +38,7 @@ public class VendasController {
         BeanUtils.copyProperties(dto, embalagem);
         embalagem.setCodBarra(produtoEmbalagemOptional.get().getCodBarra());
         embalagem.setIdembalagem(produtoEmbalagemOptional.get().getIdembalagem());
-        embalagem.setProduto(produtoEmbalagemOptional.get().getProduto()    );
+        embalagem.setProduto(produtoEmbalagemOptional.get().getProduto());
         embalagem.setEmbalagem(produtoEmbalagemOptional.get().getEmbalagem());
         embalagem.setSituacao(produtoEmbalagemOptional.get().getSituacao());
         return ResponseEntity.status(HttpStatus.OK).body(produtoEmbalagemService.save(embalagem));
