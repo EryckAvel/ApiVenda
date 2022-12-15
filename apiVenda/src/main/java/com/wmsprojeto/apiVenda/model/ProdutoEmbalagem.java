@@ -11,7 +11,7 @@ public class ProdutoEmbalagem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idprodutoembalagem;
+    private Long idembalagem;
     @ManyToOne
     @JoinColumn(name = "idproduto")
     private Produto produto;
@@ -23,8 +23,8 @@ public class ProdutoEmbalagem implements Serializable {
     public ProdutoEmbalagem() {
     }
 
-    public ProdutoEmbalagem(Long id, Produto produto, String codbarra, String embalagem, Integer quantidade, Integer situacao) {
-        this.idprodutoembalagem = id;
+    public ProdutoEmbalagem(Long idembalagem, Produto produto, String codbarra, String embalagem, Integer quantidade, Integer situacao) {
+        this.idembalagem = idembalagem;
         this.produto = produto;
         this.codbarra = codbarra;
         this.embalagem = embalagem;
@@ -32,12 +32,12 @@ public class ProdutoEmbalagem implements Serializable {
         this.situacao = situacao;
     }
 
-    public Long getIdprodutoembalagem() {
-        return idprodutoembalagem;
+    public Long getIdembalagem() {
+        return idembalagem;
     }
 
-    public void setIdprodutoembalagem(Long idprodutoembalagem) {
-        this.idprodutoembalagem = idprodutoembalagem;
+    public void setIdembalagem(Long idembalagem) {
+        this.idembalagem = idembalagem;
     }
 
     public String getCodBarra() {
@@ -81,4 +81,6 @@ public class ProdutoEmbalagem implements Serializable {
     }
 
 
+    public void setProduto(String nome) {
+    }
 }
