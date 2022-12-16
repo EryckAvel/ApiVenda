@@ -1,16 +1,20 @@
 package com.wmsprojeto.apiVenda.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements Serializable {
+public class Usuario implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idusuario;
     private String nome;
     private String login;
     private String senha;
@@ -23,8 +27,8 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(Long id, String nome, String login, String senha, String ativo, LocalDateTime dataCadastro, String email, String cpf, String telefone) {
-        this.id = id;
+    public Usuario(Long idusuario, String nome, String login, String senha, String ativo, LocalDateTime dataCadastro, String email, String cpf, String telefone) {
+        this.idusuario = idusuario;
         this.nome = nome;
         this.login = login;
         this.senha = senha;
@@ -35,12 +39,12 @@ public class Usuario implements Serializable {
         this.telefone = telefone;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdusuario() {
+        return idusuario;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdusuario(Long idusuario) {
+        this.idusuario = idusuario;
     }
 
     public String getNome() {
@@ -105,5 +109,40 @@ public class Usuario implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
