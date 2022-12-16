@@ -106,4 +106,6 @@ public class PedidoItens implements Serializable {
         this.pedidos = pedidos;
     }
 
+    public void setPedidos(Long idpedido) {
+    }
 }

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface ProdutoEmbalagemRepository extends JpaRepository<ProdutoEmbalagem, Long> {
-    Optional<ProdutoEmbalagem> findByCodBarra(String codbarra);
+    Optional<ProdutoEmbalagem> findByCodbarra(String codbarra);
 
     @Query("SELECT p FROM ProdutoEmbalagem p WHERE p.produto.idproduto = 1")
     Optional<ProdutoEmbalagem> findByIdProduto(Long idProduto);

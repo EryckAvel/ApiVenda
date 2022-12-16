@@ -30,7 +30,7 @@ public class PedidoItemController {
         if (!pedidoItensOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item não encontrado");
         }
-        return ResponseEntity.status(HttpStatus.OK).body(pedidoItensOptional.get());
+        return ResponseEntity.status(HttpStatus.OK).body(pedidoItensOptional.get(   ));
     }
 
     @PostMapping
@@ -40,6 +40,7 @@ public class PedidoItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoItensService.save(item));
     }
 
+    /*
     @PutMapping("/{codbarra}/qtd")
     public ResponseEntity<Object> alterarQtd(@PathVariable("codbarra") String codbarra,@RequestBody PedidoItensDTO dto) {
         Optional<PedidoItens> piOptional = pedidoItensService.findByCodBarra(codbarra);
@@ -57,5 +58,8 @@ public class PedidoItemController {
         itempedido.setCodbarra(piOptional.get().getCodbarra());
         return ResponseEntity.status(HttpStatus.OK).body(pedidoItensService.save(itempedido));
     }
+
+     */
+
 
 }

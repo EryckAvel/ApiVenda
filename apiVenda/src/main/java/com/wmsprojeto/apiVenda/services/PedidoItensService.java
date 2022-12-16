@@ -40,6 +40,7 @@ public class PedidoItensService {
         return pedidoItensRepository.save(item);
     }
 
+    /*
     public Optional<PedidoItens> findByCodBarra(String codbarra) {
         Optional<PedidoItens> pedidoItens = pedidoItensRepository.findByCodBarra(codbarra);
         pedidoItens.stream().map(pedidoItens1 -> {
@@ -51,4 +52,5 @@ public class PedidoItensService {
         });
         return pedidoItens;
     }
+     */
 }

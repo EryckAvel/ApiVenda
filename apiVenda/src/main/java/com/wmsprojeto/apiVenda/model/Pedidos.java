@@ -1,11 +1,11 @@
 package com.wmsprojeto.apiVenda.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "pedidos")
@@ -21,7 +21,9 @@ public class Pedidos implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idcliente")
     private Clientes cliente;
-    private LocalDateTime datageracao;
+    //@JsonFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date datageracao;
     private Integer totalpedido;
     private Integer qtditens;
     private String status;
@@ -29,7 +31,7 @@ public class Pedidos implements Serializable {
     public Pedidos() {
     }
 
-    public Pedidos(Long id, Clientes cliente, LocalDateTime dataRegistro, Integer totalPedido, Integer qtdItens, String status) {
+    public Pedidos(Long id, Clientes cliente, Date dataRegistro, Integer totalPedido, Integer qtdItens, String status) {
         this.idpedido = id;
         this.cliente = cliente;
         this.datageracao = dataRegistro;
@@ -46,11 +48,11 @@ public class Pedidos implements Serializable {
         this.idpedido = idpedido;
     }
 
-    public LocalDateTime getDatageracao() {
+    public Date getDatageracao() {
         return datageracao;
     }
 
-    public void setDatageracao(LocalDateTime datageracao) {
+    public void setDatageracao(Date datageracao) {
         this.datageracao = datageracao;
     }
 

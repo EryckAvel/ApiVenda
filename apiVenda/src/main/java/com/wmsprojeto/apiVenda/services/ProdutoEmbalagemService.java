@@ -14,7 +14,7 @@ public class ProdutoEmbalagemService {
     ProdutoEmbalagemRepository produtoEmbalagemRepository;
 
     public Optional<ProdutoEmbalagem> findByCodBarra(String codbarra) {
-        return produtoEmbalagemRepository.findByCodBarra(codbarra);
+        return produtoEmbalagemRepository.findByCodbarra(codbarra);
     }
 
     public ProdutoEmbalagem save(ProdutoEmbalagem embalagem) {

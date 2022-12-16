@@ -11,7 +11,6 @@ public class PedidoItensDTO {
     private Integer qtdseparada;
     private Integer qtdconferida;
     private Integer qtdcortada;
-
     private String codbarra;
 
     public PedidoItensDTO() {
