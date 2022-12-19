@@ -1,5 +1,6 @@
 package com.wmsprojeto.apiVenda.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,7 +22,7 @@ public class Pedidos implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idcliente")
     private Clientes cliente;
-    //@JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datageracao;
     private Integer totalpedido;

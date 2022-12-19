@@ -11,5 +11,4 @@ public interface ProdutoEmbalagemRepository extends JpaRepository<ProdutoEmbalag
 
     @Query("SELECT p FROM ProdutoEmbalagem p WHERE p.produto.idproduto = 1")
     Optional<ProdutoEmbalagem> findByIdProduto(Long idProduto);
-
 }

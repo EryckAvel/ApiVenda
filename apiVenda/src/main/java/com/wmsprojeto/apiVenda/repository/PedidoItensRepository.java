@@ -15,23 +15,7 @@ public interface PedidoItensRepository extends JpaRepository<PedidoItens, Long> 
     @Query("SELECT p FROM PedidoItens p WHERE p.pedidos.cliente.idcliente =:idcliente")
     List<PedidoItens> findAllByIdcliente(Long idcliente);
 
-    @Query("SELECT p FROM PedidoItens p WHERE p.pedidos.datageracao =:datageracao")
-    List<PedidoItens> findAllByDatageracao(Date data);
+    @Query(value = "SELECT p FROM PedidoItens p WHERE p.pedidos.datageracao =:datageracao")
+    List<PedidoItens> findAllByDatageracao(Date datageracao);
 
-/*
-    @Query()
-    PedidoItens findByCodbarra(String codBarra);
-
-
- */
-
-    //Optional<PedidoItens> findByCodBarra(String codbarra);
-
-    /*
-    @Query("SELECT p FROM ProdutoEmbalagem p WHERE p.cliente.idcliente = 1")
-    PedidoItens findByIdCliente(Long idcliente);
-
-    List<PedidoItens> findAllByIdCliente(Long idcliente);
-
-     */
 }

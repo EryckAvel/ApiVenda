@@ -5,10 +5,12 @@ import com.wmsprojeto.apiVenda.dto.PedidoItensDTO;
 import com.wmsprojeto.apiVenda.model.PedidoItens;
 import com.wmsprojeto.apiVenda.model.ProdutoEmbalagem;
 import com.wmsprojeto.apiVenda.repository.PedidoItensRepository;
+import com.wmsprojeto.apiVenda.services.PedidoItensService;
 import com.wmsprojeto.apiVenda.services.ProdutoEmbalagemService;
 import com.wmsprojeto.apiVenda.services.VendasService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +28,12 @@ public class VendasController {
 
     @Autowired
     VendasService vendasService;
+
     @Autowired
     private PedidoItensRepository pedidoItensRepository;
+
+    @Autowired
+    PedidoItensService pedidoItensService;
 
 
     @GetMapping("item/pedido/data/{idcliente}")
@@ -41,40 +47,28 @@ public class VendasController {
     }
 
     @GetMapping("/item/pedido/{data}")
-    public ResponseEntity<List<PedidoItens>> consultarDataItem(@PathVariable("data") Date data){
+    public ResponseEntity<List<PedidoItens>> consultarDataItem(@PathVariable("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date data){
         return ResponseEntity.status(HttpStatus.OK).body(vendasService.findAllByDatageracao(data));
     }
 
-
     @GetMapping("/{codbarra}")
     public ResponseEntity<Object> busacarCodBarras(@PathVariable String codbarra){
-        Optional<ProdutoEmbalagem> produtoEmbalagemOptional = produtoEmbalagemService.findByCodBarra(codbarra);
+        Optional<ProdutoEmbalagem> produtoEmbalagemOptional = vendasService.findByCodBarra(codbarra);
         if(!produtoEmbalagemOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi possivel encontrar esse codigo de barras!");
         }
         return ResponseEntity.status(HttpStatus.OK).body(produtoEmbalagemOptional.get().getProduto());
     }
 
-    @PutMapping("/{id}/{codbarra}/{qtd}")
-    public ResponseEntity<Object> buscarCodeSalvarqtd(
-            @PathVariable("id") Long id,
-            @PathVariable("codbarra") String codbarra,
-            @RequestBody PedidoItensDTO dto){
-        Optional<PedidoItens> pedidoItensOptional = vendasService.findByIdAndCodBarra(id);
-        Optional<ProdutoEmbalagem> embalagemOptional = vendasService.findByCodbarra(codbarra);
-        if(!pedidoItensOptional.isPresent() && !embalagemOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi possivel encontrar esse codigo de barras!");
-        }
-        var item = new PedidoItens();
-        BeanUtils.copyProperties(dto, item);
-        item.setPedidos(pedidoItensOptional.get().getPedidos());
-        item.setProduto(pedidoItensOptional.get().getProduto());
-        item.setQuantidade(pedidoItensOptional.get().getQuantidade());
-        item.setQtdcortada(pedidoItensOptional.get().getQtdcortada());
-        item.setQtdConferida(pedidoItensOptional.get().getQtdConferida());
-        item.setCodbarra(pedidoItensOptional.get().getCodbarra());
-        return ResponseEntity.status(HttpStatus.OK).body(vendasService.save(item));
+
+    @PutMapping("/{codbarra}/{id}/{qtd}")
+    public ResponseEntity<Object> alterarQuantidaeItem(@PathVariable("id") Long id, @PathVariable("qtd") Integer qtd,@PathVariable("codbarra") String codbarra){
+        return ResponseEntity.status(HttpStatus.OK).body(vendasService.alterarQuantidadePedidoItem(id, qtd, codbarra));
     }
 
 
+    @PutMapping("/{id}/{qtd}")
+    public ResponseEntity<Object> alterarQuantidaeItem(@PathVariable("id") Long id, @PathVariable("qtd") Integer qtd){
+        return ResponseEntity.status(HttpStatus.OK).body(vendasService.alterarQuantidadePedidoItem(id, qtd));
+    }
 }

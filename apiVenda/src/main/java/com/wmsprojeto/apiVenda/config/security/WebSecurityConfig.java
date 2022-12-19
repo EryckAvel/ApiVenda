@@ -21,16 +21,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         http.httpBasic()
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers(HttpMethod.GET, "/pedido/item").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .csrf().disable();
     }
 
+    /*
     @Override
     protected void configure(AuthenticationManagerBuilder auth, DataSource dataSource) throws Exception {
         auth.userDetailsService().
     }
+
+     */
 
     @Bean
     public PasswordEncoder passwordEncoder(){

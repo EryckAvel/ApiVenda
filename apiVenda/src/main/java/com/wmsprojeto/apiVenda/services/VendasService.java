@@ -20,22 +20,47 @@ public class VendasService {
     @Autowired
     PedidoItensRepository itensRepository;
     @Autowired
-    private ProdutoEmbalagemRepository produtoEmbalagemRepository;
+    private ProdutoEmbalagemRepository EmbalagemRepository;
     @Autowired
     private ClientesRepository clientesRepository;
     @Autowired
     private PedidosRepository pedidosRepository;
 
     public List<PedidoItens> findAllByIdpedido(Long idpedido) {
-        return itensRepository.findAllByIdpedido(idpedido);
+        List<PedidoItens> itens = itensRepository.findAllByIdpedido(idpedido);
+        itens.forEach(pedidoItens1 -> {
+            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = EmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
+            if (produtoEmbalagemOptional.isPresent()){
+                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
+            }
+        });
+        return itens;
     }
 
     public List<PedidoItens> findAllByIdcliente(Long idcliente) {
-        return itensRepository.findAllByIdcliente(idcliente);
+        List<PedidoItens> itens = itensRepository.findAllByIdcliente(idcliente);
+        itens.forEach(pedidoItens1 -> {
+            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = EmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
+            if (produtoEmbalagemOptional.isPresent()){
+                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
+            }
+        });
+        return itens;
     }
 
     public List<PedidoItens> findAllByDatageracao(Date data) {
-        return itensRepository.findAllByDatageracao(data);
+        List<PedidoItens> itens = itensRepository.findAllByDatageracao(data);
+        itens.forEach(pedidoItens1 -> {
+            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = EmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
+            if (produtoEmbalagemOptional.isPresent()){
+                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
+            }
+        });
+        return itens;
+    }
+
+    public Optional<ProdutoEmbalagem> findByCodBarra(String codbarra) {
+        return EmbalagemRepository.findByCodbarra(codbarra);
     }
 
     @Transactional
@@ -47,34 +72,44 @@ public class VendasService {
         return itensRepository.findById(id);
     }
 
-    public Optional<PedidoItens> findByIdAndCodBarra(Long id) {
-        Optional<PedidoItens> pedidoItens = itensRepository.findById(id);
-        pedidoItens.map(itens -> {
-            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = produtoEmbalagemRepository.findByIdProduto(itens.getProduto().getIdproduto());
-            if (produtoEmbalagemOptional.isPresent()){
-                itens.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
-            }
-            return pedidoItens;
-        });
-        return pedidoItens;
-    }
-
-    public Optional<ProdutoEmbalagem> findByCodbarra(String codbarra) {
-        return produtoEmbalagemRepository.findByCodbarra(codbarra);
-    }
-
-    /*
-    public List<PedidoItens> findAll() {
-        List<PedidoItens> pedidoItens = pedidoItensRepository.findAll();
-        pedidoItens.forEach(pedidoItens1 -> {
-            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = produtoEmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
+    @Transactional
+    public PedidoItens alterarQuantidadePedidoItem(Long id, Integer qtd){
+        Optional<PedidoItens> itensOptional = itensRepository.findById(id);
+        itensOptional.map(pedidoItens1 -> {
+            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = EmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
                 pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
             }
+            return itensOptional;
         });
-        return pedidoItens;
+        if (itensOptional.isEmpty()){
+            throw new RuntimeException("item não encontrado");
+        }
+        PedidoItens itens = itensOptional.get();
+        itens.setQtdSeparada(qtd);
+        return save(itens);
     }
 
-     */
+
+    @Transactional
+    public PedidoItens alterarQuantidadePedidoItem(Long id, Integer qtd, String codbarra){
+        Optional<PedidoItens> itensOptional = itensRepository.findById(id);
+        itensOptional.map(pedidoItens1 -> {
+            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = EmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
+            if (produtoEmbalagemOptional.isPresent()){
+                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
+            }
+            return itensOptional;
+        });
+        Optional<ProdutoEmbalagem> itensOptional2 = EmbalagemRepository.findByCodbarra(codbarra);
+        if (itensOptional.isEmpty()){
+            throw new RuntimeException("item não encontrado");
+        }if((itensOptional2.equals(itensOptional.get().getCodbarra()))){
+            throw new RuntimeException("Codigo de Barras não encontrado!");
+        }
+        PedidoItens itens = itensOptional.get();
+        itens.setQtdSeparada(qtd);
+        return save(itens);
+    }
 
 }
