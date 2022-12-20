@@ -108,9 +108,12 @@ public class VendasService {
         if (itensOptional.isEmpty()){
             throw new RuntimeException("item não encontrado");
         }
+        /*
         if(itensOptional2.isEmpty() || !itensOptional2.equals(itensOptional.get().getCodbarra())){
             throw new RuntimeException("Codigo de Barras não encontrado!");
         }
+
+         */
 
 
         PedidoItens itens = itensOptional.get();

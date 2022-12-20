@@ -22,7 +22,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         http.httpBasic()
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers("/vendas/**").authenticated()
+                .antMatchers(HttpMethod.PUT,"/vendas/**").hasRole("ADMIN")
+                .antMatchers("/vendas/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -35,7 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         auth.inMemoryAuthentication()
                 .withUser("eryck")
                 .password(passwordEncoder().encode("3003"))
-                .roles("ADMIN");
+                .roles("ADMIN","USER")
+                .and()
+                .withUser("mateus")
+                .password(passwordEncoder().encode("2002"))
+                .roles("USER");
     }
 
     @Bean
