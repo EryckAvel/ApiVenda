@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -21,18 +22,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         http.httpBasic()
                 .and()
                 .authorizeHttpRequests()
+                .antMatchers("/vendas/**").authenticated()
                 .anyRequest().permitAll()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .csrf().disable();
     }
 
-    /*
     @Override
-    protected void configure(AuthenticationManagerBuilder auth, DataSource dataSource) throws Exception {
-        auth.userDetailsService().
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("eryck")
+                .password(passwordEncoder().encode("3003"))
+                .roles("ADMIN");
     }
-
-     */
 
     @Bean
     public PasswordEncoder passwordEncoder(){
