@@ -90,7 +90,7 @@ public class VendasService {
         return save(itens);
     }
 
-
+    //FALTA FINALIZAR A PARTE DE CODBARRA
     @Transactional
     public PedidoItens alterarQuantidadePedidoItem(Long id, Integer qtd, String codbarra){
         Optional<PedidoItens> itensOptional = itensRepository.findById(id);
@@ -98,15 +98,21 @@ public class VendasService {
             Optional<ProdutoEmbalagem> produtoEmbalagemOptional = EmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
                 pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
+                codbarra.equals(pedidoItens1.getCodbarra());
             }
             return itensOptional;
         });
+
         Optional<ProdutoEmbalagem> itensOptional2 = EmbalagemRepository.findByCodbarra(codbarra);
+
         if (itensOptional.isEmpty()){
             throw new RuntimeException("item não encontrado");
-        }if((itensOptional2.equals(itensOptional.get().getCodbarra()))){
+        }
+        if(itensOptional2.isEmpty() || !itensOptional2.equals(itensOptional.get().getCodbarra())){
             throw new RuntimeException("Codigo de Barras não encontrado!");
         }
+
+
         PedidoItens itens = itensOptional.get();
         itens.setQtdSeparada(qtd);
         return save(itens);

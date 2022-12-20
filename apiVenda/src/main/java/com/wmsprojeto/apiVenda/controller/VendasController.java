@@ -1,14 +1,11 @@
 package com.wmsprojeto.apiVenda.controller;
 
-
-import com.wmsprojeto.apiVenda.dto.PedidoItensDTO;
 import com.wmsprojeto.apiVenda.model.PedidoItens;
 import com.wmsprojeto.apiVenda.model.ProdutoEmbalagem;
 import com.wmsprojeto.apiVenda.repository.PedidoItensRepository;
 import com.wmsprojeto.apiVenda.services.PedidoItensService;
 import com.wmsprojeto.apiVenda.services.ProdutoEmbalagemService;
 import com.wmsprojeto.apiVenda.services.VendasService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -30,7 +27,7 @@ public class VendasController {
     VendasService vendasService;
 
     @Autowired
-    private PedidoItensRepository pedidoItensRepository;
+    PedidoItensRepository pedidoItensRepository;
 
     @Autowired
     PedidoItensService pedidoItensService;
