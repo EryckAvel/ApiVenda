@@ -20,7 +20,7 @@ public class VendasService {
     @Autowired
     PedidoItensRepository itensRepository;
     @Autowired
-    private ProdutoEmbalagemRepository EmbalagemRepository;
+    ProdutoEmbalagemRepository embalagemRepository;
     @Autowired
     private ClientesRepository clientesRepository;
     @Autowired
@@ -29,7 +29,7 @@ public class VendasService {
     public List<PedidoItens> findAllByIdpedido(Long idpedido) {
         List<PedidoItens> itens = itensRepository.findAllByIdpedido(idpedido);
         itens.forEach(pedidoItens1 -> {
-            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = EmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
+            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = embalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
                 pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
             }
@@ -40,7 +40,7 @@ public class VendasService {
     public List<PedidoItens> findAllByIdcliente(Long idcliente) {
         List<PedidoItens> itens = itensRepository.findAllByIdcliente(idcliente);
         itens.forEach(pedidoItens1 -> {
-            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = EmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
+            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = embalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
                 pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
             }
@@ -51,7 +51,7 @@ public class VendasService {
     public List<PedidoItens> findAllByDatageracao(Date data) {
         List<PedidoItens> itens = itensRepository.findAllByDatageracao(data);
         itens.forEach(pedidoItens1 -> {
-            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = EmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
+            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = embalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
                 pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
             }
@@ -60,7 +60,7 @@ public class VendasService {
     }
 
     public Optional<ProdutoEmbalagem> findByCodBarra(String codbarra) {
-        return EmbalagemRepository.findByCodbarra(codbarra);
+        return embalagemRepository.findByCodbarra(codbarra);
     }
 
     @Transactional
@@ -76,7 +76,7 @@ public class VendasService {
     public PedidoItens alterarQuantidadePedidoItem(Long id, Integer qtd){
         Optional<PedidoItens> itensOptional = itensRepository.findById(id);
         itensOptional.map(pedidoItens1 -> {
-            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = EmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
+            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = embalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
                 pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
             }
@@ -95,30 +95,19 @@ public class VendasService {
     public PedidoItens alterarQuantidadePedidoItem(Long id, Integer qtd, String codbarra){
         Optional<PedidoItens> itensOptional = itensRepository.findById(id);
         itensOptional.map(pedidoItens1 -> {
-            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = EmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
+            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = embalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
                 pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
-                codbarra.equals(pedidoItens1.getCodbarra());
             }
             return itensOptional;
         });
-
-        Optional<ProdutoEmbalagem> itensOptional2 = EmbalagemRepository.findByCodbarra(codbarra);
-
         if (itensOptional.isEmpty()){
             throw new RuntimeException("item não encontrado");
         }
-        /*
-        if(itensOptional2.isEmpty() || !itensOptional2.equals(itensOptional.get().getCodbarra())){
-            throw new RuntimeException("Codigo de Barras não encontrado!");
-        }
-
-         */
-
-
         PedidoItens itens = itensOptional.get();
         itens.setQtdSeparada(qtd);
         return save(itens);
     }
+
 
 }
