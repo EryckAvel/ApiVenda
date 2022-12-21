@@ -1,5 +1,8 @@
 package com.wmsprojeto.apiVenda.config.security;
 
+import com.wmsprojeto.apiVenda.repository.UsuarioRepository;
+import com.wmsprojeto.apiVenda.services.UsuarioDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,14 +20,15 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
+    @Autowired
+    UsuarioDetailsService usuarioDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic()
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers(HttpMethod.PUT,"/vendas/**").hasRole("ADMIN")
-                .antMatchers("/vendas/**").hasAnyRole("USER", "ADMIN")
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -33,6 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(usuarioDetailsService)
+                .passwordEncoder(passwordEncoder());
+
+        /*
         auth.inMemoryAuthentication()
                 .withUser("eryck")
                 .password(passwordEncoder().encode("3003"))
@@ -41,6 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .withUser("mateus")
                 .password(passwordEncoder().encode("2002"))
                 .roles("USER");
+
+         */
     }
 
     @Bean
