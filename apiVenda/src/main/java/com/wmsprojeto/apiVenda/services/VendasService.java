@@ -4,8 +4,6 @@ import com.wmsprojeto.apiVenda.model.PedidoItens;
 import com.wmsprojeto.apiVenda.model.ProdutoEmbalagem;
 import com.wmsprojeto.apiVenda.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,8 +64,7 @@ public class VendasService {
         }
         Optional<PedidoItens> itensOptional =  itensRepository.findByIdprodutoAndId(embalagemOptional.get().getProduto().getIdproduto(), id);
         if (itensOptional.isEmpty()){
-            //throw new RuntimeException("Item com esse produto não encontrado!");
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item com esse produto não foi encontrado!");
+            throw new RuntimeException("Item com esse produto não encontrado!");
         }
         itensOptional.map(pedidoItens1 -> {
             Optional<ProdutoEmbalagem> produtoEmbalagemOptional = embalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
