@@ -13,6 +13,7 @@ public class PedidoItensDTO {
     private Integer qtdcortada;
     private String codbarra;
 
+
     public PedidoItensDTO() {
     }
 
