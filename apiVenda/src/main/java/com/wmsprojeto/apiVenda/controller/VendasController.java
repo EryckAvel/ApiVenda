@@ -20,19 +20,8 @@ import java.util.Optional;
 @RequestMapping("/vendas")
 @CrossOrigin("*")
 public class VendasController {
-
-    @Autowired
-    ProdutoEmbalagemService produtoEmbalagemService;
-
     @Autowired
     VendasService vendasService;
-
-    @Autowired
-    PedidoItensRepository pedidoItensRepository;
-
-    @Autowired
-    PedidoItensService pedidoItensService;
-
 
     @GetMapping("item/pedido/data/{idcliente}")
     public ResponseEntity<List<PedidoItens>> consultaClienteItem(@PathVariable("idcliente") Long idcliente){

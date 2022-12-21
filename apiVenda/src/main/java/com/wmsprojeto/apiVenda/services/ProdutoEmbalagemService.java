@@ -14,14 +14,6 @@ public class ProdutoEmbalagemService {
     @Autowired
     ProdutoEmbalagemRepository EmbalagemRepository;
 
-    public Optional<ProdutoEmbalagem> findByCodBarra(String codbarra) {
-        return EmbalagemRepository.findByCodbarra(codbarra);
-    }
-
-    public ProdutoEmbalagem save(ProdutoEmbalagem embalagem) {
-        return EmbalagemRepository.save(embalagem);
-    }
-
     public List<ProdutoEmbalagem> findAll() {
         return EmbalagemRepository.findAll();
     }

@@ -14,11 +14,9 @@ public class PedidoItens implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idpedidoitem;
-    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idpedido")
     private Pedidos pedidos;
-    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idproduto")
     private Produto produto;
