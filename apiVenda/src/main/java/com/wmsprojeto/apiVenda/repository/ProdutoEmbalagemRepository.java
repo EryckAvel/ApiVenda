@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface ProdutoEmbalagemRepository extends JpaRepository<ProdutoEmbalagem, Long> {
 
-    Optional<ProdutoEmbalagem> findByCodbarra(String codbarra);
-
-
     @Query("SELECT p FROM ProdutoEmbalagem p WHERE p.produto.idproduto =:idproduto")
     Optional<ProdutoEmbalagem> findByIdProduto(Long idproduto);
+
+    Optional<ProdutoEmbalagem> findByCodbarra(String codbarra);
+
 }

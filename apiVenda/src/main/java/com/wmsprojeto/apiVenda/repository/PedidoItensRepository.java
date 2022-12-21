@@ -18,4 +18,6 @@ public interface PedidoItensRepository extends JpaRepository<PedidoItens, Long> 
     @Query(value = "SELECT p FROM PedidoItens p WHERE p.pedidos.datageracao =:datageracao")
     List<PedidoItens> findAllByDatageracao(Date datageracao);
 
+    @Query("SELECT p FROM PedidoItens p WHERE p.produto.idproduto=:idproduto AND p.idpedidoitem =:idpedidoitem")
+    Optional<PedidoItens> findByIdprodutoAndId(Long idproduto, Long idpedidoitem);
 }

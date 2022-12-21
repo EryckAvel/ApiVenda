@@ -1,7 +1,10 @@
 package com.wmsprojeto.apiVenda.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,14 +15,17 @@ import java.util.Collection;
 @Table(name = "usuarios")
 public class Usuario implements Serializable, UserDetails {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idusuario;
     private String nome;
+    @Column(unique = true)
     private String login;
     private String senha;
     private String ativo;
-    private LocalDateTime dataCadastro;
+    private LocalDateTime datacadastro;
     private String email;
     private String cpf;
     private String telefone;
@@ -27,13 +33,13 @@ public class Usuario implements Serializable, UserDetails {
     public Usuario() {
     }
 
-    public Usuario(Long idusuario, String nome, String login, String senha, String ativo, LocalDateTime dataCadastro, String email, String cpf, String telefone) {
+    public Usuario(Long idusuario, String nome, String login, String senha, String ativo, LocalDateTime datacadastro, String email, String cpf, String telefone) {
         this.idusuario = idusuario;
         this.nome = nome;
         this.login = login;
         this.senha = senha;
         this.ativo = ativo;
-        this.dataCadastro = dataCadastro;
+        this.datacadastro = datacadastro;
         this.email = email;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -80,11 +86,11 @@ public class Usuario implements Serializable, UserDetails {
     }
 
     public LocalDateTime getDataCadastro() {
-        return dataCadastro;
+        return datacadastro;
     }
 
-    public void setDataCadastro(LocalDateTime dataCadastro) {
-        this.dataCadastro = dataCadastro;
+    public void setDatacadastro(LocalDateTime datacadastro) {
+        this.datacadastro = datacadastro;
     }
 
     public String getEmail() {

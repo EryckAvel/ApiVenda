@@ -18,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/vendas")
+@CrossOrigin("*")
 public class VendasController {
 
     @Autowired
@@ -57,15 +58,10 @@ public class VendasController {
         return ResponseEntity.status(HttpStatus.OK).body(produtoEmbalagemOptional.get().getProduto());
     }
 
-
-    @PutMapping("/{codbarra}/{id}/{qtd}")
-    public ResponseEntity<Object> alterarQuantidaeItem(@PathVariable("id") Long id, @PathVariable("qtd") Integer qtd,@PathVariable("codbarra") String codbarra){
-        return ResponseEntity.status(HttpStatus.OK).body(vendasService.alterarQuantidadePedidoItem(id, qtd, codbarra));
+    @PutMapping("/teste/{codbarra}/{iditem}/{qtd}")
+    public ResponseEntity<PedidoItens> alterarQuantidadeItemCodBarra(@PathVariable("codbarra") String codbarra,@PathVariable("iditem") Long iditem,@PathVariable("qtd") Integer qtd){
+        return ResponseEntity.status(HttpStatus.OK).body(vendasService.alterarQuantidadePedidoItemPorCodigoBarras(codbarra, iditem, qtd));
     }
 
 
-    @PutMapping("/{id}/{qtd}")
-    public ResponseEntity<Object> alterarQuantidaeItem(@PathVariable("id") Long id, @PathVariable("qtd") Integer qtd){
-        return ResponseEntity.status(HttpStatus.OK).body(vendasService.alterarQuantidadePedidoItem(id, qtd));
-    }
 }

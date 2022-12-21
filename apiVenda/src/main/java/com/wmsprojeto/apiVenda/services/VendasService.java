@@ -2,11 +2,10 @@ package com.wmsprojeto.apiVenda.services;
 
 import com.wmsprojeto.apiVenda.model.PedidoItens;
 import com.wmsprojeto.apiVenda.model.ProdutoEmbalagem;
-import com.wmsprojeto.apiVenda.repository.ClientesRepository;
-import com.wmsprojeto.apiVenda.repository.PedidoItensRepository;
-import com.wmsprojeto.apiVenda.repository.PedidosRepository;
-import com.wmsprojeto.apiVenda.repository.ProdutoEmbalagemRepository;
+import com.wmsprojeto.apiVenda.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +20,6 @@ public class VendasService {
     PedidoItensRepository itensRepository;
     @Autowired
     ProdutoEmbalagemRepository embalagemRepository;
-    @Autowired
-    private ClientesRepository clientesRepository;
-    @Autowired
-    private PedidosRepository pedidosRepository;
 
     public List<PedidoItens> findAllByIdpedido(Long idpedido) {
         List<PedidoItens> itens = itensRepository.findAllByIdpedido(idpedido);
@@ -64,17 +59,16 @@ public class VendasService {
     }
 
     @Transactional
-    public PedidoItens save(PedidoItens item) {
-        return itensRepository.save(item);
-    }
-
-    public Optional<PedidoItens> findById(Long id) {
-        return itensRepository.findById(id);
-    }
-
-    @Transactional
-    public PedidoItens alterarQuantidadePedidoItem(Long id, Integer qtd){
-        Optional<PedidoItens> itensOptional = itensRepository.findById(id);
+    public PedidoItens alterarQuantidadePedidoItemPorCodigoBarras(String codbarra, Long id,Integer qtd){
+        Optional<ProdutoEmbalagem> embalagemOptional = embalagemRepository.findByCodbarra(codbarra);
+        if (embalagemOptional.isEmpty()){
+            throw new RuntimeException("Produto não encontrado!");
+        }
+        Optional<PedidoItens> itensOptional =  itensRepository.findByIdprodutoAndId(embalagemOptional.get().getProduto().getIdproduto(), id);
+        if (itensOptional.isEmpty()){
+            //throw new RuntimeException("Item com esse produto não encontrado!");
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item com esse produto não foi encontrado!");
+        }
         itensOptional.map(pedidoItens1 -> {
             Optional<ProdutoEmbalagem> produtoEmbalagemOptional = embalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
@@ -82,32 +76,9 @@ public class VendasService {
             }
             return itensOptional;
         });
-        if (itensOptional.isEmpty()){
-            throw new RuntimeException("item não encontrado");
-        }
         PedidoItens itens = itensOptional.get();
         itens.setQtdSeparada(qtd);
-        return save(itens);
+        return itensRepository.save(itens);
     }
-
-    //FALTA FINALIZAR A PARTE DE CODBARRA
-    @Transactional
-    public PedidoItens alterarQuantidadePedidoItem(Long id, Integer qtd, String codbarra){
-        Optional<PedidoItens> itensOptional = itensRepository.findById(id);
-        itensOptional.map(pedidoItens1 -> {
-            Optional<ProdutoEmbalagem> produtoEmbalagemOptional = embalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
-            if (produtoEmbalagemOptional.isPresent()){
-                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
-            }
-            return itensOptional;
-        });
-        if (itensOptional.isEmpty()){
-            throw new RuntimeException("item não encontrado");
-        }
-        PedidoItens itens = itensOptional.get();
-        itens.setQtdSeparada(qtd);
-        return save(itens);
-    }
-
 
 }
