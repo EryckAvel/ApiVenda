@@ -17,7 +17,6 @@ public class Pedidos implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idpedido;
-    @JsonIdentityReference
     @ManyToOne
     @JoinColumn(name = "idcliente")
     private Clientes cliente;
