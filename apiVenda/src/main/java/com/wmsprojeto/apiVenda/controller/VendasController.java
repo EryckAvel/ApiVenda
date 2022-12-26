@@ -25,17 +25,17 @@ public class VendasController {
 
     @GetMapping("item/pedido/data/{idcliente}")
     public ResponseEntity<List<PedidoItens>> consultaClienteItem(@PathVariable("idcliente") Long idcliente){
-        return ResponseEntity.status(HttpStatus.OK).body(vendasService.findAllByIdcliente(idcliente));
+        return vendasService.findAllByIdcliente(idcliente);
     }
 
     @GetMapping("/item/{idpedido}")
     public ResponseEntity<List<PedidoItens>> consultarPedidoItem(@PathVariable("idpedido") Long idpedido){
-        return ResponseEntity.status(HttpStatus.OK).body(vendasService.findAllByIdpedido(idpedido));
+        return vendasService.findAllByIdpedido(idpedido);
     }
 
     @GetMapping("/item/pedido/{data}")
     public ResponseEntity<List<PedidoItens>> consultarDataItem(@PathVariable("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date data){
-        return ResponseEntity.status(HttpStatus.OK).body(vendasService.findAllByDatageracao(data));
+        return vendasService.findAllByDatageracao(data);
     }
 
     @GetMapping("/{codbarra}")
@@ -47,9 +47,9 @@ public class VendasController {
         return ResponseEntity.status(HttpStatus.OK).body(produtoEmbalagemOptional.get().getProduto());
     }
 
-    @PutMapping("/teste/{codbarra}/{iditem}/{qtd}")
-    public ResponseEntity<PedidoItens> alterarQuantidadeItemCodBarra(@PathVariable("codbarra") String codbarra,@PathVariable("iditem") Long iditem,@PathVariable("qtd") Integer qtd){
-        return ResponseEntity.status(HttpStatus.OK).body(vendasService.alterarQuantidadePedidoItemPorCodigoBarras(codbarra, iditem, qtd));
+    @PutMapping("/busca/{codbarra}/{iditem}/{qtd}")
+    public ResponseEntity<Object> alterarQuantidadeItemCodBarra(@PathVariable("codbarra") String codbarra,@PathVariable("iditem") Long iditem,@PathVariable("qtd") Integer qtd){
+        return vendasService.alterarQuantidadePedidoItemPorCodigoBarras(codbarra, iditem, qtd);
     }
 
 
