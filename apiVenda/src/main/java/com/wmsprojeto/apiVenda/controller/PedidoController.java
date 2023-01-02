@@ -1,7 +1,6 @@
 package com.wmsprojeto.apiVenda.controller;
 
 import com.wmsprojeto.apiVenda.model.Pedidos;
-import com.wmsprojeto.apiVenda.repository.PedidosRepository;
 import com.wmsprojeto.apiVenda.services.PedidosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

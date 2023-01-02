@@ -1,22 +1,19 @@
 package com.wmsprojeto.apiVenda.dto;
 
-import com.wmsprojeto.apiVenda.model.Pedidos;
-import com.wmsprojeto.apiVenda.model.Produto;
+public class SalvarPedidoItensDTO {
 
-public class PedidoItensDTO {
-
-    private Long pedidos;
-    private Long produto;
+    private String pedidos;
+    private String produto;
     private Integer quantidade;
     private Integer qtdseparada;
     private Integer qtdconferida;
     private Integer qtdcortada;
 
 
-    public PedidoItensDTO() {
+    public SalvarPedidoItensDTO() {
     }
 
-    public PedidoItensDTO(Long pedidos, Long produto, Integer quantidade, Integer qtdseparada, Integer qtdconferida, Integer qtdcortada) {
+    public SalvarPedidoItensDTO(String pedidos, String produto, Integer quantidade, Integer qtdseparada, Integer qtdconferida, Integer qtdcortada) {
         this.pedidos = pedidos;
         this.produto = produto;
         this.quantidade = quantidade;
@@ -25,19 +22,19 @@ public class PedidoItensDTO {
         this.qtdcortada = qtdcortada;
     }
 
-    public Long getPedidos() {
+    public String getPedidos() {
         return pedidos;
     }
 
-    public void setPedidos(Long pedidos) {
+    public void setPedidos(String pedidos) {
         this.pedidos = pedidos;
     }
 
-    public Long getProduto() {
+    public String getProduto() {
         return produto;
     }
 
-    public void setProduto(Long produto) {
+    public void setProduto(String produto) {
         this.produto = produto;
     }
 

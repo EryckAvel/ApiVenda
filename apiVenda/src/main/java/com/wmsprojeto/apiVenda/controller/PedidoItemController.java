@@ -1,6 +1,8 @@
 package com.wmsprojeto.apiVenda.controller;
 
+import com.wmsprojeto.apiVenda.config.exception.RegraNegocio;
 import com.wmsprojeto.apiVenda.dto.PedidoItensDTO;
+import com.wmsprojeto.apiVenda.dto.SalvarPedidoItensDTO;
 import com.wmsprojeto.apiVenda.model.PedidoItens;
 import com.wmsprojeto.apiVenda.services.PedidoItensService;
 import org.springframework.beans.BeanUtils;
@@ -35,10 +37,13 @@ public class PedidoItemController {
     }
 
     @PostMapping
-    public ResponseEntity<PedidoItens> salvarPedido(@RequestBody PedidoItensDTO dto){
-        var item = new PedidoItens();
-        BeanUtils.copyProperties(dto, item);
-        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoItensService.save(item));
+    public ResponseEntity<PedidoItens> salvarPedido(@RequestBody PedidoItensDTO dto) throws RegraNegocio {
+        return pedidoItensService.salvarItenPedido(dto);
+    }
+
+    @PostMapping("/detalhes")
+    public ResponseEntity<PedidoItens> salvarPedidoAtualizado(@RequestBody SalvarPedidoItensDTO dto) throws RegraNegocio {
+        return pedidoItensService.salvarItenPedidoAtualizado(dto);
     }
 
 }
