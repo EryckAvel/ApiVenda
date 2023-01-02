@@ -2,10 +2,7 @@ package com.wmsprojeto.apiVenda.controller;
 
 import com.wmsprojeto.apiVenda.model.PedidoItens;
 import com.wmsprojeto.apiVenda.model.ProdutoEmbalagem;
-import com.wmsprojeto.apiVenda.repository.PedidoItensRepository;
-import com.wmsprojeto.apiVenda.services.PedidoItensService;
-import com.wmsprojeto.apiVenda.services.ProdutoEmbalagemService;
-import com.wmsprojeto.apiVenda.services.VendasService;
+import com.wmsprojeto.apiVenda.dto.services.VendasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -22,7 +19,7 @@ import java.util.Optional;
 public class VendasController {
     @Autowired
     VendasService vendasService;
-
+/*
     @GetMapping("item/pedido/data/{idcliente}")
     public ResponseEntity<List<PedidoItens>> consultaClienteItem(@PathVariable("idcliente") Long idcliente){
         return vendasService.findAllByIdcliente(idcliente);
@@ -38,6 +35,7 @@ public class VendasController {
         return vendasService.findAllByDatageracao(data);
     }
 
+ */
     @GetMapping("/{codbarra}")
     public ResponseEntity<Object> busacarCodBarras(@PathVariable String codbarra){
         Optional<ProdutoEmbalagem> produtoEmbalagemOptional = vendasService.findByCodBarra(codbarra);
@@ -51,6 +49,20 @@ public class VendasController {
     public ResponseEntity<Object> alterarQuantidadeItemCodBarra(@PathVariable("codbarra") String codbarra,@PathVariable("iditem") Long iditem,@PathVariable("qtd") Integer qtd){
         return vendasService.alterarQuantidadePedidoItemPorCodigoBarras(codbarra, iditem, qtd);
     }
+
+    @GetMapping("/item/{idpedido}/{data}/{idcliente}")
+    public ResponseEntity<List<PedidoItens>> consultaExpecificaDeItem(@PathVariable("idpedido") Long idpedido,
+                                                                      @PathVariable("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date data,
+                                                                      @PathVariable("idcliente") Long idcliente){
+
+        return vendasService.buscaExpecificaDeItem(idpedido, data, idcliente);
+
+    }
+
+
+
+
+
 
 
 }

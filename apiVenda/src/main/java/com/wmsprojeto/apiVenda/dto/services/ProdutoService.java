@@ -1,4 +1,4 @@
-package com.wmsprojeto.apiVenda.services;
+package com.wmsprojeto.apiVenda.dto.services;
 
 import com.wmsprojeto.apiVenda.model.Produto;
 import com.wmsprojeto.apiVenda.repository.ProdutoRepository;

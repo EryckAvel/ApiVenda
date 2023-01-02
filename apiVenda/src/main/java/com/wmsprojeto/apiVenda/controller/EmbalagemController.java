@@ -1,7 +1,7 @@
 package com.wmsprojeto.apiVenda.controller;
 
 import com.wmsprojeto.apiVenda.model.ProdutoEmbalagem;
-import com.wmsprojeto.apiVenda.services.ProdutoEmbalagemService;
+import com.wmsprojeto.apiVenda.dto.services.ProdutoEmbalagemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

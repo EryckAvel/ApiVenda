@@ -2,7 +2,7 @@ package com.wmsprojeto.apiVenda.controller;
 
 import com.wmsprojeto.apiVenda.dto.ClientesDTO;
 import com.wmsprojeto.apiVenda.model.Clientes;
-import com.wmsprojeto.apiVenda.services.ClientesService;
+import com.wmsprojeto.apiVenda.dto.services.ClientesService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
