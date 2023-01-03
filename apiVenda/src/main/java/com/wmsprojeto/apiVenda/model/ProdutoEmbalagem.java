@@ -40,7 +40,7 @@ public class ProdutoEmbalagem implements Serializable {
         this.idembalagem = idembalagem;
     }
 
-    public String getCodBarra() {
+    public String getCodbarra() {
         return codbarra;
     }
 

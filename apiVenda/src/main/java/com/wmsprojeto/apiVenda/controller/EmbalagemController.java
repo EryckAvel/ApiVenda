@@ -1,14 +1,13 @@
 package com.wmsprojeto.apiVenda.controller;
 
+import com.wmsprojeto.apiVenda.config.exception.RegraNegocio;
+import com.wmsprojeto.apiVenda.dto.ProdutoEmbalagemDTO;
 import com.wmsprojeto.apiVenda.model.ProdutoEmbalagem;
 import com.wmsprojeto.apiVenda.services.ProdutoEmbalagemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +22,26 @@ public class EmbalagemController {
     @GetMapping
     public ResponseEntity<List<ProdutoEmbalagem>> listarEmbalagens(){
         return ResponseEntity.status(HttpStatus.OK).body(embalagemService.findAll());
+    }
+
+    @GetMapping("/{produto}")
+    public ResponseEntity<Object> buscarEmbalagem(@PathVariable("produto") String produto){
+        return embalagemService.buscarEmbalagem(produto);
+    }
+
+    @PostMapping
+    public ResponseEntity<Object> salvarEmbalagem(@RequestBody ProdutoEmbalagemDTO dto) throws RegraNegocio {
+        return embalagemService.salvarEmbalagem(dto);
+    }
+
+    @PutMapping("/{produto}")
+    public ResponseEntity<Object> atualizarEmbalagem(@RequestBody ProdutoEmbalagemDTO dto, @PathVariable("produto") String produto) throws RegraNegocio {
+        return embalagemService.atualizarEmbalagem(dto, produto);
+    }
+
+    @DeleteMapping("/{produto}")
+    public ResponseEntity<Object> deletarEmbalagem(@PathVariable("produto") String produto){
+        return embalagemService.deletarEmbalagem(produto);
     }
 
 }

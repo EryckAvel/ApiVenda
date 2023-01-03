@@ -13,4 +13,6 @@ public interface ProdutoEmbalagemRepository extends JpaRepository<ProdutoEmbalag
 
     Optional<ProdutoEmbalagem> findByCodbarra(String codbarra);
 
+    @Query("SELECT p FROM ProdutoEmbalagem p WHERE p.produto.nome=:produto")
+    Optional<ProdutoEmbalagem> buscarNome(String produto);
 }

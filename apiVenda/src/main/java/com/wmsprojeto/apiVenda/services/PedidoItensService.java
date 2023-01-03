@@ -38,7 +38,7 @@ public class PedidoItensService {
         pedidoItens.forEach(pedidoItens1 -> {
             Optional<ProdutoEmbalagem> produtoEmbalagemOptional = EmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
-                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
+                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodbarra());
             }
         });
         return pedidoItens;
@@ -49,7 +49,7 @@ public class PedidoItensService {
          itensOptional.map(pedidoItens1 -> {
              Optional<ProdutoEmbalagem> produtoEmbalagemOptional = EmbalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
              if (produtoEmbalagemOptional.isPresent()){
-                 pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
+                 pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodbarra());
              }
              return itensOptional;
          });
@@ -81,7 +81,7 @@ public class PedidoItensService {
         item.setPedidos(pedidos);
         item.setProduto(produto);
         Optional<ProdutoEmbalagem> optionalProdutoEmbalagem = EmbalagemRepository.findByIdProduto(produto.getIdproduto());
-        item.setCodbarra(optionalProdutoEmbalagem.get().getCodBarra());
+        item.setCodbarra(optionalProdutoEmbalagem.get().getCodbarra());
         item.setQtdConferida(dto.getQtdconferida());
         item.setQtdSeparada(dto.getQtdseparada());
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoItensRepository.save(item));
@@ -99,7 +99,7 @@ public class PedidoItensService {
         item.setPedidos(pedidos);
         item.setProduto(produto);
         Optional<ProdutoEmbalagem> optionalProdutoEmbalagem = EmbalagemRepository.findByIdProduto(produto.getIdproduto());
-        item.setCodbarra(optionalProdutoEmbalagem.get().getCodBarra());
+        item.setCodbarra(optionalProdutoEmbalagem.get().getCodbarra());
         item.setQtdConferida(dto.getQtdconferida());
         item.setQtdSeparada(dto.getQtdseparada());
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoItensRepository.save(item));

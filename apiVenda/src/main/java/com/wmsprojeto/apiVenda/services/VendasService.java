@@ -27,7 +27,7 @@ public class VendasService {
         itens.forEach(pedidoItens1 -> {
             Optional<ProdutoEmbalagem> produtoEmbalagemOptional = embalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
-                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
+                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodbarra());
             }
         });
         return ResponseEntity.status(HttpStatus.OK).body(itens);
@@ -38,7 +38,7 @@ public class VendasService {
         itens.forEach(pedidoItens1 -> {
             Optional<ProdutoEmbalagem> produtoEmbalagemOptional = embalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
-                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
+                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodbarra());
             }
         });
         return ResponseEntity.status(HttpStatus.OK).body(itens);
@@ -49,7 +49,7 @@ public class VendasService {
         itens.forEach(pedidoItens1 -> {
             Optional<ProdutoEmbalagem> produtoEmbalagemOptional = embalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
-                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
+                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodbarra());
             }
         });
         return ResponseEntity.status(HttpStatus.OK).body(itens);
@@ -74,7 +74,7 @@ public class VendasService {
         itensOptional.map(pedidoItens1 -> {
             Optional<ProdutoEmbalagem> produtoEmbalagemOptional = embalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
-                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
+                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodbarra());
             }
             return itensOptional;
         });
@@ -88,7 +88,7 @@ public class VendasService {
         itens.forEach(pedidoItens1 -> {
             Optional<ProdutoEmbalagem> produtoEmbalagemOptional = embalagemRepository.findByIdProduto(pedidoItens1.getProduto().getIdproduto());
             if (produtoEmbalagemOptional.isPresent()){
-                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodBarra());
+                pedidoItens1.setCodbarra(produtoEmbalagemOptional.get().getCodbarra());
             }
         });
         return ResponseEntity.status(HttpStatus.OK).body(itens);
