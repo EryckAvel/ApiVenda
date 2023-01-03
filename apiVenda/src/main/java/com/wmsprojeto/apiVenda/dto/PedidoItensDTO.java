@@ -1,8 +1,5 @@
 package com.wmsprojeto.apiVenda.dto;
 
-import com.wmsprojeto.apiVenda.model.Pedidos;
-import com.wmsprojeto.apiVenda.model.Produto;
-
 public class PedidoItensDTO {
 
     private Long pedidos;

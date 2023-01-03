@@ -1,9 +1,7 @@
 package com.wmsprojeto.apiVenda.dto;
 
 import com.wmsprojeto.apiVenda.model.Clientes;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class PedidoDTO {
