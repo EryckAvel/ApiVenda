@@ -1,4 +1,4 @@
-package com.wmsprojeto.apiVenda.dto.services;
+package com.wmsprojeto.apiVenda.services;
 
 import com.wmsprojeto.apiVenda.config.exception.RegraNegocio;
 import com.wmsprojeto.apiVenda.dto.PedidoItensDTO;
@@ -103,5 +103,13 @@ public class PedidoItensService {
         item.setQtdConferida(dto.getQtdconferida());
         item.setQtdSeparada(dto.getQtdseparada());
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoItensRepository.save(item));
+    }
+
+    public ResponseEntity<Object> buscarItem(Long id) {
+        Optional<PedidoItens> pedidoItensOptional = pedidoItensRepository.findById(id);
+        if (!pedidoItensOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item não encontrado");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(pedidoItensOptional.get());
     }
 }

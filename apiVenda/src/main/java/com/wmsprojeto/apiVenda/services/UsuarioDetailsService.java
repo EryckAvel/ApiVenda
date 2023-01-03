@@ -1,4 +1,4 @@
-package com.wmsprojeto.apiVenda.dto.services;
+package com.wmsprojeto.apiVenda.services;
 
 import com.wmsprojeto.apiVenda.model.Usuario;
 import com.wmsprojeto.apiVenda.repository.UsuarioRepository;

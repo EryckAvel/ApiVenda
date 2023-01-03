@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "pedidos")
@@ -38,6 +39,7 @@ public class Pedidos implements Serializable {
         this.qtditens = qtdItens;
         this.status = status;
     }
+
 
     public Long getIdpedido() {
         return idpedido;
