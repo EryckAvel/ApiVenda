@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +70,7 @@ public class PedidoItensService {
         return pedidoItensRepository.findById(id);
     }
 
+    @Transactional
     public ResponseEntity<PedidoItens> salvarItenPedido(PedidoItensDTO dto) throws RegraNegocio {
         var item = new PedidoItens();
         Long idpedido = dto.getPedidos();
@@ -87,6 +89,7 @@ public class PedidoItensService {
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoItensRepository.save(item));
     }
 
+    @Transactional
     public ResponseEntity<PedidoItens> salvarItenPedidoAtualizado(SalvarPedidoItensDTO dto) throws RegraNegocio {
         var item = new PedidoItens();
         String nomeCliente = dto.getPedidos();
@@ -111,5 +114,15 @@ public class PedidoItensService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item não encontrado");
         }
         return ResponseEntity.status(HttpStatus.OK).body(pedidoItensOptional.get());
+    }
+
+    @Transactional
+    public ResponseEntity<Object> deletarPedido(Long idpedido, Long iditen) {
+        Optional<PedidoItens> itensOptional = pedidoItensRepository.buscarItem(idpedido, iditen);
+        if (itensOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Iten de pedido não encotrado!");
+        }
+        pedidoItensRepository.delete(itensOptional.get());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Iten deletado!");
     }
 }

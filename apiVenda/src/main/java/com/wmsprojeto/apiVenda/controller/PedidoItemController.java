@@ -4,6 +4,7 @@ import com.wmsprojeto.apiVenda.config.exception.RegraNegocio;
 import com.wmsprojeto.apiVenda.dto.PedidoItensDTO;
 import com.wmsprojeto.apiVenda.dto.SalvarPedidoItensDTO;
 import com.wmsprojeto.apiVenda.model.PedidoItens;
+import com.wmsprojeto.apiVenda.repository.PedidosRepository;
 import com.wmsprojeto.apiVenda.services.PedidoItensService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ public class PedidoItemController {
 
     @Autowired
     PedidoItensService pedidoItensService;
+    @Autowired
+    private PedidosRepository pedidosRepository;
 
     @GetMapping
     public ResponseEntity<List<PedidoItens>> listarItensPedido(){
@@ -38,6 +41,11 @@ public class PedidoItemController {
     @PostMapping("/detalhes")
     public ResponseEntity<PedidoItens> salvarPedidoAtualizado(@RequestBody SalvarPedidoItensDTO dto) throws RegraNegocio {
         return pedidoItensService.salvarItenPedidoAtualizado(dto);
+    }
+
+    @DeleteMapping("/{idpedido}/{iditen}")
+    public ResponseEntity<Object> deletarPedido(@PathVariable("idpedido")Long idpedido, @PathVariable("iditen") Long iditen){
+        return pedidoItensService.deletarPedido(idpedido, iditen);
     }
 
 }

@@ -23,4 +23,7 @@ public interface PedidoItensRepository extends JpaRepository<PedidoItens, Long> 
 
     @Query("SELECT p FROM PedidoItens p WHERE p.pedidos.idpedido=:idpedido AND p.pedidos.datageracao=:data AND p.pedidos.cliente.idcliente=:idcliente")
     List<PedidoItens> findAllExpecifico(Long idpedido, Date data, Long idcliente);
+
+    @Query("SELECT p FROM PedidoItens p WHERE p.idpedidoitem=:iditen AND p.pedidos.idpedido=:idpedido")
+    Optional<PedidoItens> buscarItem(Long idpedido, Long iditen);
 }
