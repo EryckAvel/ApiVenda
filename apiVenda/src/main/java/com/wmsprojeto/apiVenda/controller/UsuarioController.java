@@ -23,15 +23,27 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity<List<Usuario>> listarUsuarios(){
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioDetailsService.findAll());
+        return usuarioDetailsService.listarUsuarios();
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<Object> buscarUsuario(@PathVariable("email") String email){
+        return usuarioDetailsService.buscarUsuario(email);
     }
 
     @PostMapping
     public ResponseEntity<Usuario> salvarUsuario(@RequestBody UsuarioDTO dto){
-        var usuario = new Usuario();
-        BeanUtils.copyProperties(dto, usuario);
-        usuario.setDatacadastro(LocalDateTime.now(ZoneId.of("UTC")));
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDetailsService.save(usuario));
+        return usuarioDetailsService.salvarUsuario(dto);
+    }
+
+    @PutMapping("/{email}")
+    public ResponseEntity<Object> atualizarUsuario(@RequestBody UsuarioDTO dto, @PathVariable("email") String email){
+        return usuarioDetailsService.atualizarUsuario(dto, email);
+    }
+
+    @DeleteMapping("/{email}")
+    public ResponseEntity<Object> deletarUsuario(@PathVariable("email") String email){
+        return usuarioDetailsService.deletarUsuario(email);
     }
 
 }
